@@ -158,6 +158,7 @@ form.addEventListener('submit', async (e) => {
         access_key: '9d23613f-b1fe-4fdc-9e9b-1c050aaa353d',
         subject: `New Quote Request from ${formData.firstName} ${formData.lastName} — ${formData.serviceType}`,
         from_name: 'Sunhill Land Company Website',
+        cc: 'silas@sunhillland.co',
         ...formData,
       }),
     });
