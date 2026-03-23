@@ -150,21 +150,19 @@ form.addEventListener('submit', async (e) => {
     source:      window.location.href,
   };
 
-  // Simulate submission (replace with Formspree or EmailJS endpoint)
-  // To connect a real form backend, replace the URL below with your Formspree endpoint
-  // e.g., https://formspree.io/f/YOUR_FORM_ID
   try {
-    // Simulate a network delay for demo purposes
-    await new Promise(resolve => setTimeout(resolve, 1200));
-
-    // ---- REAL FORM SUBMISSION (uncomment & configure when ready) ----
-    // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    //   body: JSON.stringify(formData),
-    // });
-    // if (!response.ok) throw new Error('Submission failed');
-    // ---- END REAL FORM SUBMISSION ----
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: '9d23613f-b1fe-4fdc-9e9b-1c050aaa353d',
+        subject: `New Quote Request from ${formData.firstName} ${formData.lastName} — ${formData.serviceType}`,
+        from_name: 'Sunhill Land Company Website',
+        ...formData,
+      }),
+    });
+    const result = await response.json();
+    if (!result.success) throw new Error('Submission failed');
 
     // Show success state
     form.style.display = 'none';
